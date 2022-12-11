@@ -30,9 +30,9 @@
 
 - ver 1.0.2 - CPU, GPU, Colab(GPU) demo를 통해 구동 확인
 
-- ver 1.0.3 - MASK-RCNN Config 에서 훈련모델 사용할 것 및 _Base_ 에폭 조절 업뎃 (예정)
+- ver 1.0.3 - MASK-RCNN Config 에서 훈련모델 사용할 것 및 _Base_ 에폭 조절 업뎃
 
-- ver 1.1.0 - CPU, GPU, Colab(GPU) 훈련 소스 구현 (예정)
+- ver 1.1.0 - CPU, GPU, Colab(GPU) 훈련 소스 구현
 
 - ver 1.1.1 - CPU, GPU, Colab(GPU) 가중치 검증 소스 구현 (예정)
 
