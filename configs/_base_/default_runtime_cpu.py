@@ -1,8 +1,7 @@
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = 'datasets/fashion/'
-CLASSES = ('onepiece(dress)', 'skirt', 'pants', 'onepiece(jumpsuite)', 'shirt', 'sweater', 'blouse',
-                'cardigan', 'jumper', 'jacket', 'coat', 't-shirt')
+CLASSES = ('onepiece(dress)', 'skirt', 'pants', 'jumpsuite', 'shirt', 'sweater', 'blouse', 'cardigan', 'jumper', 'jacket', 'coat', 't-shirt')
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -33,39 +32,21 @@ test_pipeline = [
 ]
 data = dict(
     samples_per_cpu=1,
-    workers_per_cpu=1,
+    workers_per_cpu=4,
     train=dict(
         type=dataset_type,
-        ann_file=[data_root + 'train/blouse_01/annotations/instances_default.json', data_root + 'train/blouse_02/annotations/instances_default.json', data_root + 'train/cardigan_01/annotations/instances_default.json', data_root + 'train/cardigan_02/annotations/instances_default.json',
-                    data_root + 'train/coat_01/annotations/instances_default.json', data_root + 'train/coat_02/annotations/instances_default.json', data_root + 'train/jacket_01/annotations/instances_default.json', data_root + 'train/jacket_02/annotations/instances_default.json',
-                    data_root + 'train/jumper_01/annotations/instances_default.json', data_root + 'train/jumper_02/annotations/instances_default.json', data_root + 'train/onepiece(dress)_01/annotations/instances_default.json', data_root + 'train/onepiece(dress)_02/annotations/instances_default.json',
-                    data_root + 'train/onepiece(dress)_03/annotations/instances_default.json', data_root + 'train/onepiece(dress)_04/annotations/instances_default.json', data_root + 'train/onepiece(jumpsuite)_01/annotations/instances_default.json', data_root + 'train/pants_01/annotations/instances_default.json',
-                    data_root + 'train/pants_02/annotations/instances_default.json', data_root + 'train/shirt_01/annotations/instances_default.json', data_root + 'train/shirt_02/annotations/instances_default.json', data_root + 'train/skirt_01/annotations/instances_default.json',
-                    data_root + 'train/skirt_02/annotations/instances_default.json', data_root + 'train/sweater_01/annotations/instances_default.json', data_root + 'train/sweater_02/annotations/instances_default.json', data_root + 'train/t-shirt_01/annotations/instances_default.json',
-                    data_root + 'train/t-shirt_02/annotations/instances_default.json'],
-        img_prefix=[data_root + 'train/blouse_01/images', data_root + 'train/blouse_02/images/', data_root + 'train/cardigan_01/images/', data_root + 'train/cardigan_02/images/',
-                    data_root + 'train/coat_01/images/', data_root + 'train/coat_02/images/', data_root + 'train/jacket_01/images/', data_root + 'train/jacket_02/images/',
-                    data_root + 'train/jumper_01/images/', data_root + 'train/jumper_02/images/', data_root + 'train/onepiece(dress)_01/images/', data_root + 'train/onepiece(dress)_02/images/',
-                    data_root + 'train/onepiece(dress)_03/images/', data_root + 'train/onepiece(dress)_04/images/', data_root + 'train/onepiece(jumpsuite)_01/images/', data_root + 'train/pants_01/images/',
-                    data_root + 'train/pants_02/images/', data_root + 'train/shirt_01/images/', data_root + 'train/shirt_02/images/', data_root + 'train/skirt_01/images/',
-                    data_root + 'train/skirt_02/images/', data_root + 'train/sweater_01/images/', data_root + 'train/sweater_02/images/', data_root + 'train/t-shirt_01/images/',
-                    data_root + 'train/t-shirt_02/images/'],
+        ann_file=data_root + 'train_intances_coco.json',
+        img_prefix=data_root + 'train/',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=[data_root + 'test/blouse_01/annotations/instances_default.json', data_root + 'test/cardigan_01/annotations/instances_default.json', data_root + 'test/coat_01/annotations/instances_default.json', data_root + 'test/jacket_01/annotations/instances_default.json',
-                    data_root + 'test/jumper_01/annotations/instances_default.json', data_root + 'test/onepiece(dress)_01/annotations/instances_default.json',  data_root + 'test/onepiece(jumpsuite)_01/annotations/instances_default.json', data_root + 'test/pants_01/annotations/instances_default.json',
-                    data_root + 'test/shirt_01/annotations/instances_default.json', data_root + 'test/skirt_01/annotations/instances_default.json', data_root + 'test/sweater_01/annotations/instances_default.json', data_root + 'test/t-shirt_01/annotations/instances_default.json',],
-        img_prefix=[data_root + 'test/blouse_01/images', data_root + 'test/cardigan_01/images/', data_root + 'test/coat_01/images/', data_root + 'test/jacket_01/images/', data_root + 'test/jumper_01/images/', data_root + 'test/onepiece(dress)_01/images/',
-                    data_root + 'test/onepiece(jumpsuite)_01/images/', data_root + 'test/pants_01/images/', data_root + 'test/shirt_01/images/', data_root + 'test/skirt_01/images/', data_root + 'test/sweater_01/images/', data_root + 'test/t-shirt_01/images/'],
+        ann_file=data_root + 'val_intances_coco.json',
+        img_prefix=data_root + 'val/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=[data_root + 'test/blouse_01/annotations/instances_default.json', data_root + 'test/cardigan_01/annotations/instances_default.json', data_root + 'test/coat_01/annotations/instances_default.json', data_root + 'test/jacket_01/annotations/instances_default.json',
-                    data_root + 'test/jumper_01/annotations/instances_default.json', data_root + 'test/onepiece(dress)_01/annotations/instances_default.json',  data_root + 'test/onepiece(jumpsuite)_01/annotations/instances_default.json', data_root + 'test/pants_01/annotations/instances_default.json',
-                    data_root + 'test/shirt_01/annotations/instances_default.json', data_root + 'test/skirt_01/annotations/instances_default.json', data_root + 'test/sweater_01/annotations/instances_default.json', data_root + 'test/t-shirt_01/annotations/instances_default.json',],
-        img_prefix=[data_root + 'test/blouse_01/images', data_root + 'test/cardigan_01/images/', data_root + 'test/coat_01/images/', data_root + 'test/jacket_01/images/', data_root + 'test/jumper_01/images/', data_root + 'test/onepiece(dress)_01/images/',
-                    data_root + 'test/onepiece(jumpsuite)_01/images/', data_root + 'test/pants_01/images/', data_root + 'test/shirt_01/images/', data_root + 'test/skirt_01/images/', data_root + 'test/sweater_01/images/', data_root + 'test/t-shirt_01/images/'],
+        ann_file=data_root + 'test_intances_coco.json',
+        img_prefix=data_root + 'test/',
         pipeline=test_pipeline))
 evaluation = dict(metric=['bbox', 'segm'])
 
