@@ -22,7 +22,7 @@
 
 <div align="center">
 
-## 경기대학교 Open Source Software 실습(DD847_2148) 2조 기말과제 <br>🙍‍♂️16학번 임정규(조장) 🙍‍♂️18학번 김성환 🙍‍♂️18학번 유준혁
+## 경기대학교 Open Source Software 실습(DD847_2148) 2조 기말과제 <br>🙍‍♂️임정규_DoxB(조장) 🙍‍♂️김성환_OsanAB 🙍‍♂️유준혁_JunHyeokYoo
 </div>
 <br>
 
@@ -41,15 +41,15 @@
 
 
 # CPU 실행 명령어
-훈련: python tools/train.py configs/_base_/default_runtime_cpu.py
+훈련: python tools/train.py configs/_base_/default_runtime_cpu.py<br>
 검증: python tools/test.py configs/_base_/default_runtime_cpu.py work_dirs/default_runtime_cpu/latest.pth --show-dir work_dirs/result
 
 # GPU 실행 명령어
-훈련: python tools/train.py configs/_base_/default_runtime_gpu.py
+훈련: python tools/train.py configs/_base_/default_runtime_gpu.py<br>
 검증: python tools/test.py configs/_base_/default_runtime_gpu.py work_dirs/default_runtime_gpu/latest.pth --show-dir work_dirs/result
 
 # Colab_GPU 실행 명령어
-훈련: !python tools/train.py configs/_base_/default_runtime_colab_gpu.py
+훈련: !python tools/train.py configs/_base_/default_runtime_colab_gpu.py<br>
 검증: !python tools/test.py configs/_base_/default_runtime_colab_gpu.py work_dirs/default_runtime_colab_gpu/latest.pth --show-dir work_dirs/result
 
 
