@@ -36,7 +36,7 @@
 - ver 1.1.0 - CPU, GPU, Colab(GPU) 훈련 / 검증 소스 구현
 
 #datasets link
-<a href="https://drive.google.com/file/d/1w4rEax-4Zsclkt7FBIZSpXP17F7hiTbk/view?usp=share_link">
+<a href="https://drive.google.com/file/d/1w4rEax-4Zsclkt7FBIZSpXP17F7hiTbk/view?usp=share_link">datasets</a>
 <b> 해당 레포지토리에 위치시킵니다.</b>
 
 
