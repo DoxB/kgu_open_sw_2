@@ -1,8 +1,8 @@
-# dataset settings
 dataset_type = 'CocoDataset'
 data_root = 'datasets/fashion/'
-CLASSES = ('onepiece(dress)', 'skirt', 'pants', 'jumpsuite', 'shirt', 'sweater', 'blouse', 'cardigan', 'jumper', 'jacket', 'coat', 't-shirt')
-
+CLASSES = ('onepiece(dress)', 'skirt', 'pants', 'jumpsuite', 'shirt',
+           'sweater', 'blouse', 'cardigan', 'jumper', 'jacket', 'coat',
+           't-shirt')
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -10,10 +10,14 @@ train_pipeline = [
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(type='Resize', img_scale=(1333, 800), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
-    dict(type='Normalize', **img_norm_cfg),
+    dict(
+        type='Normalize',
+        mean=[123.675, 116.28, 103.53],
+        std=[58.395, 57.12, 57.375],
+        to_rgb=True),
     dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'])
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -24,35 +28,86 @@ test_pipeline = [
         transforms=[
             dict(type='Resize', keep_ratio=True),
             dict(type='RandomFlip'),
-            dict(type='Normalize', **img_norm_cfg),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
             dict(type='Pad', size_divisor=32),
             dict(type='ImageToTensor', keys=['img']),
-            dict(type='Collect', keys=['img']),
+            dict(type='Collect', keys=['img'])
         ])
 ]
 data = dict(
     samples_per_cpu=1,
     workers_per_cpu=4,
     train=dict(
-        type=dataset_type,
-        ann_file=data_root + 'train_intances_coco.json',
-        img_prefix=data_root + 'train/',
-        pipeline=train_pipeline),
+        type='CocoDataset',
+        ann_file='datasets/fashion/train_intances_coco.json',
+        img_prefix='datasets/fashion/train/',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
+            dict(type='Resize', img_scale=(1333, 800), keep_ratio=True),
+            dict(type='RandomFlip', flip_ratio=0.5),
+            dict(
+                type='Normalize',
+                mean=[123.675, 116.28, 103.53],
+                std=[58.395, 57.12, 57.375],
+                to_rgb=True),
+            dict(type='Pad', size_divisor=32),
+            dict(type='DefaultFormatBundle'),
+            dict(
+                type='Collect',
+                keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'])
+        ]),
     val=dict(
-        type=dataset_type,
-        ann_file=data_root + 'val_intances_coco.json',
-        img_prefix=data_root + 'val/',
-        pipeline=test_pipeline),
+        type='CocoDataset',
+        ann_file='datasets/fashion/val_intances_coco.json',
+        img_prefix='datasets/fashion/val/',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(
+                type='MultiScaleFlipAug',
+                img_scale=(1333, 800),
+                flip=False,
+                transforms=[
+                    dict(type='Resize', keep_ratio=True),
+                    dict(type='RandomFlip'),
+                    dict(
+                        type='Normalize',
+                        mean=[123.675, 116.28, 103.53],
+                        std=[58.395, 57.12, 57.375],
+                        to_rgb=True),
+                    dict(type='Pad', size_divisor=32),
+                    dict(type='ImageToTensor', keys=['img']),
+                    dict(type='Collect', keys=['img'])
+                ])
+        ]),
     test=dict(
-        type=dataset_type,
-        ann_file=data_root + 'test_intances_coco.json',
-        img_prefix=data_root + 'test/',
-        pipeline=test_pipeline))
+        type='CocoDataset',
+        ann_file='datasets/fashion/test_intances_coco.json',
+        img_prefix='datasets/fashion/test/',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(
+                type='MultiScaleFlipAug',
+                img_scale=(1333, 800),
+                flip=False,
+                transforms=[
+                    dict(type='Resize', keep_ratio=True),
+                    dict(type='RandomFlip'),
+                    dict(
+                        type='Normalize',
+                        mean=[123.675, 116.28, 103.53],
+                        std=[58.395, 57.12, 57.375],
+                        to_rgb=True),
+                    dict(type='Pad', size_divisor=32),
+                    dict(type='ImageToTensor', keys=['img']),
+                    dict(type='Collect', keys=['img'])
+                ])
+        ]))
 evaluation = dict(metric=['bbox', 'segm'])
-
-
-
-# model settings
 model = dict(
     type='MaskRCNN',
     backbone=dict(
@@ -81,7 +136,7 @@ model = dict(
             strides=[4, 8, 16, 32, 64]),
         bbox_coder=dict(
             type='DeltaXYWHBBoxCoder',
-            target_means=[.0, .0, .0, .0],
+            target_means=[0.0, 0.0, 0.0, 0.0],
             target_stds=[1.0, 1.0, 1.0, 1.0]),
         loss_cls=dict(
             type='CrossEntropyLoss', use_sigmoid=True, loss_weight=1.0),
@@ -101,7 +156,7 @@ model = dict(
             num_classes=12,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
-                target_means=[0., 0., 0., 0.],
+                target_means=[0.0, 0.0, 0.0, 0.0],
                 target_stds=[0.1, 0.1, 0.2, 0.2]),
             reg_class_agnostic=False,
             loss_cls=dict(
@@ -120,7 +175,6 @@ model = dict(
             num_classes=12,
             loss_mask=dict(
                 type='CrossEntropyLoss', use_mask=True, loss_weight=1.0))),
-    # model training and testing settings
     train_cfg=dict(
         rpn=dict(
             assigner=dict(
@@ -172,15 +226,9 @@ model = dict(
             nms=dict(type='nms', iou_threshold=0.5),
             max_per_img=100,
             mask_thr_binary=0.5)))
-
-
-load_from = 'http://download.openmmlab.com/mmdetection/v2.0/mask_rcnn/mask_rcnn_r50_fpn_1x_coco/mask_rcnn_r50_fpn_1x_coco_20200205-d4b0c5d6.pth'
-
-
-# optimizer
+load_from = None
 optimizer = dict(type='SGD', lr=0.0025, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
-# learning policy
 lr_config = dict(
     policy='step',
     warmup='linear',
@@ -188,34 +236,16 @@ lr_config = dict(
     warmup_ratio=0.001,
     step=[8, 11])
 runner = dict(type='EpochBasedRunner', max_epochs=1)
-
-
-
-
 checkpoint_config = dict(interval=1)
-# yapf:disable
-log_config = dict(
-    interval=50,
-    hooks=[
-        dict(type='TextLoggerHook'),
-        # dict(type='TensorboardLoggerHook')
-    ])
-# yapf:enable
+log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 custom_hooks = [dict(type='NumClassCheckHook')]
-
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-load_from = None
 resume_from = None
 workflow = [('train', 1)]
-
-# disable opencv multithreading to avoid system being overloaded
 opencv_num_threads = 0
-# set multi-process start method as `fork` to speed up the training
 mp_start_method = 'fork'
-
-# Default setting for scaling LR automatically
-#   - `enable` means enable scaling LR automatically
-#       or not by default.
-#   - `base_batch_size` = (8 GPUs) x (2 samples per GPU).
 auto_scale_lr = dict(enable=False, base_batch_size=0)
+work_dir = './work_dirs\default_runtime_cpu'
+auto_resume = False
+gpu_ids = [0]
