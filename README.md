@@ -35,20 +35,20 @@
 
 - ver 1.1.0 - CPU, GPU, Colab(GPU) 훈련 / 검증 소스 구현
 
-#datasets link
-<a href="https://drive.google.com/file/d/1w4rEax-4Zsclkt7FBIZSpXP17F7hiTbk/view?usp=share_link">datasets</a>
+# datasets link
+<a href="https://drive.google.com/file/d/1w4rEax-4Zsclkt7FBIZSpXP17F7hiTbk/view?usp=share_link">datasets</a><br>
 <b> 해당 레포지토리에 위치시킵니다.</b>
 
 
-#CPU 실행 명령어
+# CPU 실행 명령어
 훈련: python tools/train.py configs/_base_/default_runtime_cpu.py
 검증: python tools/test.py configs/_base_/default_runtime_cpu.py work_dirs/default_runtime_cpu/latest.pth --show-dir work_dirs/result
 
-#GPU 실행 명령어
+# GPU 실행 명령어
 훈련: python tools/train.py configs/_base_/default_runtime_gpu.py
 검증: python tools/test.py configs/_base_/default_runtime_gpu.py work_dirs/default_runtime_gpu/latest.pth --show-dir work_dirs/result
 
-#Colab_GPU 실행 명령어
+# Colab_GPU 실행 명령어
 훈련: !python tools/train.py configs/_base_/default_runtime_colab_gpu.py
 검증: !python tools/test.py configs/_base_/default_runtime_colab_gpu.py work_dirs/default_runtime_colab_gpu/latest.pth --show-dir work_dirs/result
 
